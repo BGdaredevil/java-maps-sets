@@ -10,8 +10,40 @@ public class Main {
 
 //        countRealNums(sc);
 //        getStudentAverage(sc);
-        countSymbols(sc);
+//        countSymbols(sc);
+        phonebook(sc);
 
+    }
+
+    public static void phonebook(Scanner sc) {
+        String command = sc.nextLine();
+        boolean isSearchMode = false;
+        Map<String, String> phones = new HashMap<>();
+        System.out.println();
+        while (!command.equals("stop")) {
+            if (command.equals("search")) {
+                isSearchMode = true;
+                command = sc.nextLine();
+            }
+
+            String[] comandParams = command.split("-");
+            if (isSearchMode) {
+                String item = phones.get(comandParams[0]);
+
+                if (item != null) {
+                    System.out.printf("%s -> %s\n", comandParams[0], item);
+                    command = sc.nextLine();
+                    continue;
+                }
+
+                System.out.printf("Contact %s not found.\n", comandParams[0]);
+                command = sc.nextLine();
+                continue;
+            }
+
+            phones.put(comandParams[0], comandParams[1]);
+            command = sc.nextLine();
+        }
     }
 
     public static void countSymbols(Scanner sc) {
