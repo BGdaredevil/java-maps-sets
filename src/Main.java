@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -14,8 +13,32 @@ public class Main {
 //        countSymbols(sc);
 //        phonebook(sc);
 //        cardHands(sc);
-        populationCounter(sc);
+//        populationCounter(sc);
+        wordSynonyms(sc);
 
+    }
+
+    public static void wordSynonyms(Scanner sc) {
+        int count = Integer.parseInt(sc.nextLine());
+        Map<String, ArrayList<String>> dictionary = new HashMap<>(count);
+        Map<String, String> dictionaryKeys = new HashMap<>(count);
+
+        while (count > 0) {
+            String word = sc.nextLine();
+            String synonym = sc.nextLine();
+            if (!dictionary.containsKey(word)) {
+                dictionary.put(word, new ArrayList<>());
+            }
+
+            if (!dictionaryKeys.containsKey(synonym)) {
+                dictionaryKeys.put(synonym, word);
+                dictionary.get(word).add(synonym);
+            }
+
+            count--;
+        }
+
+        dictionary.forEach((key, value) -> System.out.printf("%s - %s\n", key, String.join(", ", value)));
     }
 
     public static void populationCounter(Scanner sc) {
