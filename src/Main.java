@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -11,7 +12,65 @@ public class Main {
 //        countRealNums(sc);
 //        getStudentAverage(sc);
 //        countSymbols(sc);
-        phonebook(sc);
+//        phonebook(sc);
+        cardHands(sc);
+
+    }
+
+    public static void cardHands(Scanner sc) {
+        String command = sc.nextLine();
+        Map<String, Integer> cardColor = new HashMap<>(Map.ofEntries(
+                Map.entry("S", 4),
+                Map.entry("H", 3),
+                Map.entry("D", 2),
+                Map.entry("C", 1)
+        ));
+        Map<String, Integer> cardPower = new HashMap<>(Map.ofEntries(
+                Map.entry("2", 2),
+                Map.entry("3", 3),
+                Map.entry("4", 4),
+                Map.entry("5", 5),
+                Map.entry("6", 6),
+                Map.entry("7", 7),
+                Map.entry("8", 8),
+                Map.entry("9", 9),
+                Map.entry("10", 10),
+                Map.entry("J", 11),
+                Map.entry("Q", 12),
+                Map.entry("K", 13),
+                Map.entry("A", 14)
+        ));
+
+        Map<String, Map<String, Integer>> peoplesDecks = new LinkedHashMap<>();
+
+        while (!command.equals("JOKER")) {
+            String[] input = command.split(": ");
+            String personName = input[0];
+            String[] personDrawDeck = input[1].split(", ");
+
+            if (!peoplesDecks.containsKey(personName)) {
+                peoplesDecks.put(personName, new HashMap<>());
+            }
+
+            Map<String, Integer> personsDeck = peoplesDecks.get(personName);
+
+            for (String card : personDrawDeck) {
+                if (!personsDeck.containsKey(card)) {
+                    String[] cardProps = card.split("(?=[C,H,S,D]{1})");
+                    int cardPow = cardPower.get(cardProps[0]);
+                    int cardColorMult = cardColor.get(cardProps[1]);
+
+                    personsDeck.put(card, cardPow * cardColorMult);
+                }
+            }
+
+            command = sc.nextLine();
+        }
+
+        peoplesDecks.forEach((person, deck) -> {
+            int deckPower = deck.values().stream().reduce(0, Integer::sum);
+            System.out.printf("%s: %d\n", person, deckPower);
+        });
 
     }
 
