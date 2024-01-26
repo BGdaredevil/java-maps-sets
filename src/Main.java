@@ -9,7 +9,27 @@ public class Main {
         System.out.println("input");
 
 //        countRealNums(sc);
-        getStudentAverage(sc);
+//        getStudentAverage(sc);
+        countSymbols(sc);
+
+    }
+
+    public static void countSymbols(Scanner sc) {
+        String[] input = sc.nextLine().split("");
+
+        Map<String, Integer> results = new TreeMap<>();
+
+        for (String ch : input) {
+            if (!results.containsKey(ch)) {
+                results.put(ch, 0);
+            }
+
+            results.put(ch, results.get(ch) + 1);
+        }
+
+        for (Map.Entry<String, Integer> item : results.entrySet()) {
+            System.out.printf("%s: %d\n", item.getKey(), item.getValue());
+        }
 
     }
 
