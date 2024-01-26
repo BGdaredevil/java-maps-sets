@@ -13,7 +13,53 @@ public class Main {
 //        getStudentAverage(sc);
 //        countSymbols(sc);
 //        phonebook(sc);
-        cardHands(sc);
+//        cardHands(sc);
+        populationCounter(sc);
+
+    }
+
+    public static void populationCounter(Scanner sc) {
+        String command = sc.nextLine();
+        Map<String, Map<String, Integer>> countries = new LinkedHashMap<>();
+
+        while (!command.equals("report")) {
+            String[] comandProps = command.split("\\|");
+            String country = comandProps[1];
+            String city = comandProps[0];
+            int population = Integer.parseInt(comandProps[2]);
+
+            if (!countries.containsKey(country)) {
+                countries.put(country, new LinkedHashMap<>());
+            }
+
+            Map<String, Integer> countryItem = countries.get(country);
+            if (!countryItem.containsKey(city)) {
+                countryItem.put(city, 0);
+            }
+
+            countryItem.put(city, countryItem.get(city) + population);
+
+            command = sc.nextLine();
+        }
+
+        countries.entrySet()
+                .stream()
+                .sorted((a, b) -> Integer.compare(
+                        b.getValue().values().stream().mapToInt(Integer::intValue).sum(),
+                        a.getValue().values().stream().mapToInt(Integer::intValue).sum()
+                ))
+                .toList()
+                .forEach(element -> {
+                    String countryName = element.getKey();
+                    int totalPop = element.getValue().values().stream().mapToInt(Integer::intValue).sum();
+                    System.out.printf("%s (total population: %d)\n", countryName, totalPop);
+
+                    element.getValue()
+                            .entrySet()
+                            .stream()
+                            .sorted((a, b) -> Integer.compare(b.getValue(), a.getValue()))
+                            .forEach(entry -> System.out.printf("  => %s: %d\n", entry.getKey(), entry.getValue()));
+                });
 
     }
 
