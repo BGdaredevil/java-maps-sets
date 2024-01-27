@@ -21,8 +21,33 @@ public class Main {
 //        largestThree(sc);
 //        charCounter(sc);
 //        parking(sc);
-        studentAcademy(sc);
+//        studentAcademy(sc);
+        companyUsers(sc);
 
+    }
+
+    private static void companyUsers(Scanner sc) {
+        Map<String, Set<String>> companyEmployees = new LinkedHashMap<>();
+        String comand = sc.nextLine();
+
+        while (!comand.equals("End")) {
+            String[] params = comand.split(" -> ");
+            String name = params[0];
+            String id = params[1];
+
+            if (!companyEmployees.containsKey(name)) {
+                companyEmployees.put(name, new LinkedHashSet<>());
+            }
+
+            companyEmployees.get(name).add(id);
+
+            comand = sc.nextLine();
+        }
+
+        companyEmployees.forEach((company, employees) -> {
+            System.out.printf("%s\n", company);
+            employees.forEach((c) -> System.out.printf("  -- %s\n", c));
+        });
     }
 
     private static void studentAcademy(Scanner sc) {
