@@ -16,7 +16,38 @@ public class Main {
 //        populationCounter(sc);
 //        wordSynonyms(sc);
 //        oddOccurances(sc);
-        wordFilter(sc);
+//        wordFilter(sc);
+        cities(sc);
+
+    }
+
+    public static void cities(Scanner sc) {
+        int count = Integer.parseInt(sc.nextLine());
+        Map<String, Map<String, Set<String>>> store = new LinkedHashMap<>();
+
+        while (count > 0) {
+            String[] line = sc.nextLine().split(" ");
+            String continent = line[0];
+            String country = line[1];
+            String city = line[2];
+            if (!store.containsKey(continent)) {
+                store.put(continent, new LinkedHashMap<>());
+            }
+
+            Map<String, Set<String>> countries = store.get(continent);
+            if (!countries.containsKey(country)) {
+                countries.put(country, new LinkedHashSet<>());
+            }
+
+            countries.get(country).add(city);
+
+            count--;
+        }
+
+        store.forEach((contitnent, countries) -> {
+            System.out.printf("%s:\n", contitnent);
+            countries.forEach((country, cities) -> System.out.printf("  %s -> %s\n", country, String.join(", ", cities)));
+        });
 
     }
 
