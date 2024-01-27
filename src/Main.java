@@ -18,8 +18,26 @@ public class Main {
 //        oddOccurances(sc);
 //        wordFilter(sc);
 //        cities(sc);
-        largestThree(sc);
+//        largestThree(sc);
+        charCounter(sc);
 
+    }
+
+    private static void charCounter(Scanner sc) {
+        String[] tokens = sc.nextLine().split(" ");
+        Map<String, Integer> map = new LinkedHashMap<>(tokens.length);
+
+        for (String word : tokens) {
+            for (String character : word.split("")) {
+                if (!map.containsKey(character)) {
+                    map.put(character, 0);
+                }
+
+                map.put(character, map.get(character) + 1);
+            }
+        }
+
+        map.forEach((character, count) -> System.out.printf("%s -> %d\n", character, count));
     }
 
     public static void largestThree(Scanner sc) {
