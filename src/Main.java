@@ -24,7 +24,84 @@ public class Main {
 //        studentAcademy(sc);
 //        companyUsers(sc);
 //        parkingLot(sc);
-        partyList(sc);
+//        partyList(sc);
+        warGame(sc);
+
+    }
+
+    private static void warGame(Scanner sc) {
+        ArrayDeque<Integer> firstPlayerDeck = new ArrayDeque<>(new LinkedHashSet<>(
+                Arrays.asList(
+                        Arrays.stream(sc.nextLine().split(" "))
+                                .mapToInt(Integer::parseInt)
+                                .boxed()
+                                .toArray(Integer[]::new)
+                )
+        ));
+
+        ArrayDeque<Integer> secondPlayerDeck = new ArrayDeque<>(new LinkedHashSet<>(
+                Arrays.asList(
+                        Arrays.stream(sc.nextLine().split(" "))
+                                .mapToInt(Integer::parseInt)
+                                .boxed()
+                                .toArray(Integer[]::new)
+                )
+        ));
+
+        ArrayDeque<Integer> spoils = new ArrayDeque<>(2);
+
+        int rounds = 50;
+
+        while (rounds > 0) {
+            rounds--;
+            var firstCard = firstPlayerDeck.peekFirst();
+            var secondCard = secondPlayerDeck.peekFirst();
+
+            if (firstCard == null && secondCard == null) {
+                System.out.println("Draw!");
+                return;
+            }
+
+            if (firstCard == null) {
+                System.out.println("Second player wins!");
+                return;
+            }
+
+            if (secondCard == null) {
+                System.out.println("First player wins!");
+                return;
+            }
+
+            if (firstCard > secondCard) {
+                spoils.add(secondPlayerDeck.removeFirst());
+                spoils.add(firstPlayerDeck.removeFirst());
+
+                while (!spoils.isEmpty()) {
+                    firstPlayerDeck.add(spoils.removeFirst());
+                }
+            }
+
+            if (firstCard < secondCard) {
+                spoils.add(firstPlayerDeck.removeFirst());
+                spoils.add(secondPlayerDeck.removeFirst());
+
+                while (!spoils.isEmpty()) {
+                    secondPlayerDeck.add(spoils.removeFirst());
+                }
+            }
+
+            if (firstCard.equals(secondCard)) {
+                spoils.add(firstPlayerDeck.removeFirst());
+                spoils.add(secondPlayerDeck.removeFirst());
+            }
+        }
+
+        if (firstPlayerDeck.size() > secondPlayerDeck.size()) {
+            System.out.println("First player wins!");
+
+        } else {
+            System.out.println("Second player wins!");
+        }
 
     }
 
