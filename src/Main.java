@@ -25,8 +25,23 @@ public class Main {
 //        companyUsers(sc);
 //        parkingLot(sc);
 //        partyList(sc);
-        warGame(sc);
+//        warGame(sc);
+        uniqueUsernames(sc);
 
+    }
+
+    private static void uniqueUsernames(Scanner sc) {
+        int count = Integer.parseInt(sc.nextLine());
+        Set<String> input = new LinkedHashSet<>();
+
+        while (count > 0) {
+            count--;
+            String name = sc.nextLine();
+
+            input.add(name);
+        }
+
+        input.forEach(System.out::println);
     }
 
     private static void warGame(Scanner sc) {
