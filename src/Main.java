@@ -22,8 +22,42 @@ public class Main {
 //        charCounter(sc);
 //        parking(sc);
 //        studentAcademy(sc);
-        companyUsers(sc);
+//        companyUsers(sc);
+        parkingLot(sc);
 
+    }
+
+    private static void parkingLot(Scanner sc) {
+        String command = sc.nextLine();
+        Set<String> lotState = new LinkedHashSet<>();
+
+        while (!command.equals("END")) {
+            String[] params = command.split(", ");
+            String direction = params[0];
+            String plate = params[1];
+
+            switch (direction) {
+                case "IN" -> {
+                    if (!lotState.contains(plate)) {
+                        lotState.add(plate);
+                    }
+                }
+                case "OUT" -> {
+                    if (lotState.contains(plate)) {
+                        lotState.remove(plate);
+                    }
+                }
+            }
+
+            command = sc.nextLine();
+        }
+
+        if (lotState.isEmpty()) {
+            System.out.println("Parking Lot is Empty.");
+            return;
+        }
+
+        System.out.println(String.join("\n", lotState));
     }
 
     private static void companyUsers(Scanner sc) {
