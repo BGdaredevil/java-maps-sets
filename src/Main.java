@@ -26,8 +26,46 @@ public class Main {
 //        parkingLot(sc);
 //        partyList(sc);
 //        warGame(sc);
-        uniqueUsernames(sc);
+//        uniqueUsernames(sc);
+        elementSet(sc);
 
+    }
+
+    private static void elementSet(Scanner sc) {
+        int[] input = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int firstCount = input[0];
+        int secondCount = input[1];
+        boolean secondIsSmaller = firstCount > secondCount;
+        StringBuilder result = new StringBuilder();
+
+        Set<Integer> first = new LinkedHashSet<>();
+        Set<Integer> second = new LinkedHashSet<>();
+
+        while (firstCount > 0) {
+            firstCount--;
+            first.add(Integer.parseInt(sc.nextLine()));
+        }
+
+        while (secondCount > 0) {
+            secondCount--;
+            second.add(Integer.parseInt(sc.nextLine()));
+        }
+
+        if (secondIsSmaller) {
+            second.forEach(e -> {
+                if (first.contains(e)) {
+                    result.append(e).append(" ");
+                }
+            });
+        } else {
+            first.forEach(e -> {
+                if (second.contains(e)) {
+                    result.append(e).append(" ");
+                }
+            });
+        }
+
+        System.out.println(result.toString().trim());
     }
 
     private static void uniqueUsernames(Scanner sc) {
