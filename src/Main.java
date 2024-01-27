@@ -15,8 +15,29 @@ public class Main {
 //        cardHands(sc);
 //        populationCounter(sc);
 //        wordSynonyms(sc);
-        oddOccurances(sc);
+//        oddOccurances(sc);
+        wordFilter(sc);
 
+    }
+
+    public static void wordFilter(Scanner sc) {
+//        one-liner without any mentions of maps
+//        System.out.println(
+//                Arrays.stream(sc.nextLine().split(" "))
+//                        .filter(e -> e.length() % 2 == 0)
+//                        .collect(Collectors.joining("\n"))
+//        );
+
+        String[] input = sc.nextLine().split(" ");
+        Map<String, Integer> words = new LinkedHashMap<>();
+
+        for (String word : input) {
+            if (word.length() % 2 == 0) {
+                words.put(word, 1);
+            }
+        }
+
+        System.out.println(String.join("\n", words.keySet()));
     }
 
     public static void oddOccurances(Scanner sc) {
