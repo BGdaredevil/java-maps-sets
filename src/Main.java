@@ -17,8 +17,23 @@ public class Main {
 //        wordSynonyms(sc);
 //        oddOccurances(sc);
 //        wordFilter(sc);
-        cities(sc);
+//        cities(sc);
+        largestThree(sc);
 
+    }
+
+    public static void largestThree(Scanner sc) {
+        String input =
+                Arrays.stream(sc.nextLine().split(" "))
+                        .mapToInt(Integer::parseInt)
+                        .boxed()
+                        .sorted((a, b) -> b - a)
+                        .limit(3)
+                        .mapToInt(Integer::intValue)
+                        .mapToObj(String::valueOf)
+                        .collect(Collectors.joining(" "));
+
+        System.out.println(input);
     }
 
     public static void cities(Scanner sc) {
