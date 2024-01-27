@@ -27,8 +27,21 @@ public class Main {
 //        partyList(sc);
 //        warGame(sc);
 //        uniqueUsernames(sc);
-        elementSet(sc);
+//        elementSet(sc);
+        periodicTable(sc);
 
+    }
+
+    private static void periodicTable(Scanner sc) {
+        int count = Integer.parseInt(sc.nextLine());
+        TreeSet<String> result = new TreeSet<>();
+
+        while (count > 0) {
+            count--;
+            result.addAll(Arrays.asList(sc.nextLine().split(" ")));
+        }
+
+        System.out.println(String.join(" ", result));
     }
 
     private static void elementSet(Scanner sc) {
