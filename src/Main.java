@@ -19,8 +19,49 @@ public class Main {
 //        wordFilter(sc);
 //        cities(sc);
 //        largestThree(sc);
-        charCounter(sc);
+//        charCounter(sc);
+        parking(sc);
 
+    }
+
+    private static void parking(Scanner sc) {
+        int count = Integer.parseInt(sc.nextLine());
+        Map<String, String> platesList = new LinkedHashMap<>(count);
+
+        while (count > 0) {
+            count--;
+            String[] commandParams = sc.nextLine().split(" ");
+            String keyword = commandParams[0];
+            String username = commandParams[1];
+
+            switch (keyword) {
+                case "Register" -> {
+                    String plate = commandParams[2];
+
+                    if (platesList.containsKey(username)) {
+                        System.out.printf("ERROR: already registered with plate number %s\n", plate);
+                        break;
+                    }
+
+                    platesList.put(username, plate);
+                    System.out.printf("%s registered %s successfully.\n", username, plate);
+                    break;
+                }
+                case "Unregister" -> {
+                    if (!platesList.containsKey(username)) {
+                        System.out.printf("ERROR: user %s not found.\n", username);
+                        break;
+                    }
+
+                    platesList.remove(username);
+                    System.out.printf("%s unregistered successfully.\n", username);
+                    break;
+                }
+            }
+
+        }
+
+        platesList.forEach((user, plate) -> System.out.printf("%s => %s\n", user, plate));
     }
 
     private static void charCounter(Scanner sc) {
