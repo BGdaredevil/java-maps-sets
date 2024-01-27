@@ -14,8 +14,25 @@ public class Main {
 //        phonebook(sc);
 //        cardHands(sc);
 //        populationCounter(sc);
-        wordSynonyms(sc);
+//        wordSynonyms(sc);
+        oddOccurances(sc);
 
+    }
+
+    public static void oddOccurances(Scanner sc) {
+        String[] input = sc.nextLine().toLowerCase().split(" ");
+        Map<String, Integer> occurances = new LinkedHashMap<>();
+
+        for (String word : input) {
+            if (!occurances.containsKey(word)) {
+                occurances.put(word, 0);
+            }
+
+            occurances.put(word, occurances.get(word) + 1);
+        }
+
+        String result = occurances.entrySet().stream().filter((entry) -> entry.getValue() % 2 == 1).map(Map.Entry::getKey).collect(Collectors.joining(", "));
+        System.out.println(result);
     }
 
     public static void wordSynonyms(Scanner sc) {
