@@ -23,8 +23,43 @@ public class Main {
 //        parking(sc);
 //        studentAcademy(sc);
 //        companyUsers(sc);
-        parkingLot(sc);
+//        parkingLot(sc);
+        partyList(sc);
 
+    }
+
+    private static void partyList(Scanner sc) {
+        String input = sc.nextLine();
+        var digitRegex = "\\d";
+
+        Set<String> vipList = new LinkedHashSet<>();
+        Set<String> regularList = new LinkedHashSet<>();
+
+        while (!input.equals("PARTY")) {
+            String firstDigit = input.substring(0, 1);
+            if (firstDigit.matches(digitRegex)) {
+                vipList.add(input);
+            } else {
+                regularList.add(input);
+            }
+
+            input = sc.nextLine();
+        }
+
+        while (!input.equals("END")) {
+            String firstDigit = input.substring(0, 1);
+            if (firstDigit.matches(digitRegex)) {
+                vipList.remove(input);
+            } else {
+                regularList.remove(input);
+            }
+
+            input = sc.nextLine();
+        }
+
+        System.out.println(vipList.size() + regularList.size());
+        System.out.println(String.join("\n", vipList));
+        System.out.println(String.join("\n", regularList));
     }
 
     private static void parkingLot(Scanner sc) {
