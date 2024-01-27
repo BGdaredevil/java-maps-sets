@@ -20,8 +20,39 @@ public class Main {
 //        cities(sc);
 //        largestThree(sc);
 //        charCounter(sc);
-        parking(sc);
+//        parking(sc);
+        studentAcademy(sc);
 
+    }
+
+    private static void studentAcademy(Scanner sc) {
+        int count = Integer.parseInt(sc.nextLine());
+        Map<String, ArrayList<Double>> students = new LinkedHashMap<>(count);
+
+        while (count > 0) {
+            count--;
+            String studentName = sc.nextLine();
+            double studentGrade = Double.parseDouble((sc.nextLine()));
+
+            if (!students.containsKey(studentName)) {
+                students.put(studentName, new ArrayList<>());
+            }
+
+            students.get(studentName).add(studentGrade);
+        }
+
+        students
+                .entrySet()
+                .stream()
+                .filter((entry) -> entry
+                        .getValue()
+                        .stream()
+                        .reduce(0.0, Double::sum)
+                        / entry.getValue().size() >= 4.5
+                )
+                .forEach((entry) ->
+                        System.out.printf("%s -> %.2f\n", entry.getKey(), entry.getValue().stream().reduce(0.0, Double::sum) / entry.getValue().size())
+                );
     }
 
     private static void parking(Scanner sc) {
